@@ -1,0 +1,1310 @@
+/* ==========================================================
+   StudentTasker — Main Stylesheet (styles.css)
+   A responsive task management app for university students.
+   
+   TABLE OF CONTENTS:
+   1. CSS Custom Properties (Colors, Spacing, etc.)
+   2. Reset & Base Styles
+   3. Navbar
+   4. Hero Section (Home Page)
+   5. Features Section
+   6. CTA Section
+   7. Page Hero (About / Contact)
+   8. About Page
+   9. Contact Page
+   10. Dashboard
+   11. Task Form
+   12. Filter Tabs
+   13. Task Counters
+   14. Task Cards
+   15. Edit Modal
+   16. Toast Notification
+   17. Footer
+   18. Animations
+   19. Responsive Design (Tablet & Mobile)
+   ========================================================== */
+
+
+/* ==================== 1. CSS CUSTOM PROPERTIES ====================
+   We define all colors, spacing, and effects here as CSS variables.
+   This makes it easy to change the theme by editing one place.
+   ================================================================== */
+:root {
+    /* Primary Brand Colors */
+    --primary: #6C63FF;
+    /* Vibrant indigo — main brand color */
+    --primary-dark: #5A52D5;
+    /* Darker shade for hover states */
+    --primary-light: #8B83FF;
+    /* Lighter shade for accents */
+
+    /* Category Colors — each task category gets a unique color */
+    --accent-study: #FF6B6B;
+    /* Warm red for Study tasks */
+    --accent-assignment: #4ECDC4;
+    /* Teal for Assignment tasks */
+    --accent-personal: #FFD93D;
+    /* Golden yellow for Personal tasks */
+
+    /* Background & Surface Colors (Dark Theme) */
+    --bg-body: #0F0E17;
+    /* Main page background */
+    --bg-card: #1A1932;
+    /* Card/panel background */
+    --bg-card-hover: #222148;
+    /* Card background on hover */
+    --bg-input: #252447;
+    /* Input field background */
+
+    /* Text Colors */
+    --text-primary: #FFFFFE;
+    /* Main headings and important text */
+    --text-secondary: #A7A9BE;
+    /* Body text and descriptions */
+    --text-muted: #72748B;
+    /* Subtle text like dates and labels */
+
+    /* Border Color */
+    --border-color: #2E2D50;
+    /* Used for card borders and dividers */
+
+    /* Status Colors */
+    --success: #2CB67D;
+    /* Green — completed, success messages */
+    --danger: #E53170;
+    /* Pink/Red — delete, error messages */
+    --warning: #FF8906;
+    /* Orange — pending, warnings */
+
+    /* Gradient — used for buttons and accent text */
+    --gradient: linear-gradient(135deg, #6C63FF 0%, #E53170 100%);
+
+    /* Spacing, Borders & Effects */
+    --radius: 12px;
+    /* Default border radius for cards */
+    --radius-sm: 8px;
+    /* Smaller radius for inputs/badges */
+    --shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+    /* Standard shadow */
+    --shadow-lg: 0 8px 40px rgba(0, 0, 0, 0.4);
+    /* Larger shadow for modals */
+    --transition: all 0.3s ease;
+    /* Default transition for hover effects */
+}
+
+
+/* ==================== 2. RESET & BASE STYLES ====================
+   Removes default browser margins/padding and sets up base typography.
+   ================================================================ */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    /* Makes sizing more predictable */
+}
+
+html {
+    scroll-behavior: smooth;
+    /* Smooth scrolling when clicking anchor links */
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background-color: var(--bg-body);
+    color: var(--text-primary);
+    line-height: 1.6;
+    min-height: 100vh;
+}
+
+/* Remove default link underlines */
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Remove default list bullets */
+ul {
+    list-style: none;
+}
+
+/* Prevent images from overflowing containers */
+img {
+    max-width: 100%;
+}
+
+/* Reusable container — centers content and limits width */
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+
+/* ==================== 3. NAVBAR ====================
+   Sticky navigation bar with glassmorphism effect (semi-transparent + blur).
+   Contains: Logo, nav links, and a hamburger menu for mobile.
+   ==================================================== */
+.navbar {
+    background: rgba(15, 14, 23, 0.85);
+    /* Semi-transparent background */
+    backdrop-filter: blur(12px);
+    /* Glass blur effect */
+    border-bottom: 1px solid var(--border-color);
+    position: sticky;
+    /* Stays at top when scrolling */
+    top: 0;
+    z-index: 1000;
+    /* Above other content */
+    padding: 0 20px;
+}
+
+/* Flex container for logo and links */
+.nav-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+}
+
+/* Logo styling */
+.nav-logo {
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: var(--transition);
+}
+
+.nav-logo:hover {
+    color: var(--primary);
+    /* Logo turns purple on hover */
+}
+
+.logo-icon {
+    font-size: 1.5rem;
+}
+
+/* Navigation links — horizontal list on desktop */
+.nav-links {
+    display: flex;
+    gap: 8px;
+}
+
+.nav-links a {
+    padding: 8px 18px;
+    border-radius: 50px;
+    /* Pill-shaped links */
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    transition: var(--transition);
+}
+
+.nav-links a:hover {
+    color: var(--text-primary);
+    background: var(--bg-card);
+}
+
+/* Active page link — highlighted with primary color */
+.nav-links a.active {
+    background: var(--primary);
+    color: #fff;
+}
+
+/* Hamburger menu button — hidden on desktop, shown on mobile */
+.nav-toggle {
+    display: none;
+    /* Hidden by default (desktop) */
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+}
+
+/* Individual hamburger lines */
+.hamburger {
+    width: 24px;
+    height: 2px;
+    background: var(--text-primary);
+    border-radius: 2px;
+    transition: var(--transition);
+}
+
+
+/* ==================== 4. HERO SECTION (HOME PAGE) ====================
+   Large intro section visible on the home page.
+   Features: Badge, headline, description, CTA buttons, stats.
+   ====================================================================== */
+.hero {
+    min-height: calc(100vh - 64px);
+    /* Full viewport minus navbar */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 60px 20px;
+    /* Decorative radial gradients in the background */
+    background:
+        radial-gradient(circle at 20% 50%, rgba(108, 99, 255, 0.12) 0%, transparent 50%),
+        radial-gradient(circle at 80% 30%, rgba(229, 49, 112, 0.1) 0%, transparent 50%);
+}
+
+.hero-content {
+    max-width: 700px;
+}
+
+/* Small badge above the headline */
+.hero-badge {
+    display: inline-block;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    padding: 8px 20px;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--primary-light);
+    margin-bottom: 24px;
+}
+
+/* Main headline */
+.hero h1 {
+    font-size: 3.2rem;
+    font-weight: 800;
+    line-height: 1.15;
+    margin-bottom: 20px;
+}
+
+/* Gradient-colored text (used for emphasis) */
+.gradient-text {
+    background: var(--gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Hero paragraph */
+.hero-description {
+    font-size: 1.15rem;
+    color: var(--text-secondary);
+    margin-bottom: 36px;
+    line-height: 1.7;
+}
+
+/* CTA buttons container */
+.hero-buttons {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 48px;
+}
+
+/* ========== BUTTON STYLES ========== */
+/* Base button */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 28px;
+    border-radius: 50px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: var(--transition);
+    font-family: inherit;
+}
+
+/* Primary button — gradient background */
+.btn-primary {
+    background: var(--gradient);
+    color: #fff;
+    box-shadow: 0 4px 16px rgba(108, 99, 255, 0.3);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    /* Subtle lift on hover */
+    box-shadow: 0 6px 24px rgba(108, 99, 255, 0.45);
+}
+
+/* Outline button — transparent with border */
+.btn-outline {
+    background: transparent;
+    color: var(--text-primary);
+    border: 2px solid var(--border-color);
+}
+
+.btn-outline:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+}
+
+/* Large button variant */
+.btn-lg {
+    padding: 16px 36px;
+    font-size: 1.05rem;
+}
+
+/* Full-width button */
+.btn-block {
+    width: 100%;
+}
+
+/* Small button variant */
+.btn-sm {
+    padding: 6px 14px;
+    font-size: 0.8rem;
+    border-radius: 8px;
+}
+
+/* Hero stats row */
+.hero-stats {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+}
+
+.stat {
+    text-align: center;
+}
+
+.stat-number {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary-light);
+}
+
+.stat-label {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-top: 4px;
+}
+
+
+/* ==================== 5. FEATURES SECTION ====================
+   Grid of 6 feature cards displayed on the home page.
+   ============================================================= */
+.features {
+    padding: 80px 20px;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+
+.section-subtitle {
+    text-align: center;
+    color: var(--text-secondary);
+    font-size: 1.05rem;
+    margin-bottom: 48px;
+}
+
+/* 3-column grid on desktop */
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+
+/* Individual feature card */
+.feature-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    padding: 32px 24px;
+    text-align: center;
+    transition: var(--transition);
+}
+
+.feature-card:hover {
+    transform: translateY(-4px);
+    /* Lift effect on hover */
+    background: var(--bg-card-hover);
+    box-shadow: var(--shadow);
+}
+
+.feature-icon {
+    font-size: 2.5rem;
+    margin-bottom: 16px;
+}
+
+.feature-card h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.feature-card p {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+
+/* ==================== 6. CTA SECTION ====================
+   Simple call-to-action section on the home page.
+   ======================================================== */
+.cta-section {
+    text-align: center;
+    padding: 80px 20px;
+    background:
+        radial-gradient(circle at 50% 50%, rgba(108, 99, 255, 0.08) 0%, transparent 60%);
+}
+
+.cta-section h2 {
+    font-size: 2rem;
+    margin-bottom: 12px;
+}
+
+.cta-section p {
+    color: var(--text-secondary);
+    font-size: 1.05rem;
+    margin-bottom: 32px;
+}
+
+
+/* ==================== 7. PAGE HERO (About / Contact) ====================
+   A smaller hero banner used on the About and Contact pages.
+   ======================================================================== */
+.page-hero {
+    text-align: center;
+    padding: 80px 20px 48px;
+    background:
+        radial-gradient(circle at 30% 40%, rgba(108, 99, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 70% 60%, rgba(229, 49, 112, 0.08) 0%, transparent 50%);
+}
+
+.page-hero h1 {
+    font-size: 2.6rem;
+    font-weight: 800;
+    margin-bottom: 12px;
+}
+
+.page-hero-subtitle {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+
+/* ==================== 8. ABOUT PAGE ====================
+   Info cards for purpose, audience, tech stack, features.
+   ======================================================== */
+.about-content {
+    padding: 40px 20px 80px;
+}
+
+/* Each info card */
+.about-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    padding: 36px 32px;
+    margin-bottom: 24px;
+    transition: var(--transition);
+}
+
+.about-card:hover {
+    border-color: var(--primary);
+    /* Highlight border on hover */
+}
+
+.about-card-icon {
+    font-size: 2.2rem;
+    margin-bottom: 12px;
+}
+
+.about-card h2 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+
+.about-card p {
+    color: var(--text-secondary);
+    line-height: 1.7;
+}
+
+/* Technology stack badges */
+.tech-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 16px;
+}
+
+.tech-badge {
+    background: var(--bg-input);
+    border: 1px solid var(--border-color);
+    padding: 10px 20px;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Feature list in the About page */
+.feature-list {
+    list-style: none;
+    margin-top: 12px;
+}
+
+.feature-list li {
+    padding: 8px 0;
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.feature-list li:last-child {
+    border-bottom: none;
+}
+
+
+/* ==================== 9. CONTACT PAGE ====================
+   Two-column grid: contact form on the left, info cards on the right.
+   ============================================================ */
+.contact-section {
+    padding: 40px 20px 80px;
+}
+
+/* Grid: larger left column for form, smaller right for info */
+.contact-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 32px;
+    align-items: start;
+}
+
+/* Contact form card */
+.contact-form-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    padding: 36px 32px;
+}
+
+.contact-form-card h2 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 24px;
+}
+
+/* Contact info sidebar cards */
+.contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.info-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    padding: 24px;
+    text-align: center;
+    transition: var(--transition);
+}
+
+.info-card:hover {
+    border-color: var(--primary);
+    transform: translateY(-2px);
+}
+
+.info-icon {
+    font-size: 2rem;
+    margin-bottom: 8px;
+}
+
+.info-card h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+.info-card p {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+
+/* ==================== 10. DASHBOARD ====================
+   Main layout for the Task Dashboard page.
+   Contains the form, filters, counters, and task lists.
+   ======================================================== */
+.dashboard {
+    padding: 40px 20px 80px;
+}
+
+.page-title {
+    font-size: 2.2rem;
+    font-weight: 800;
+    margin-bottom: 8px;
+}
+
+.page-subtitle {
+    color: var(--text-secondary);
+    font-size: 1.05rem;
+    margin-bottom: 36px;
+}
+
+
+/* ==================== 11. TASK FORM ====================
+   The "Add New Task" form card on the dashboard.
+   Also used for the edit modal form and contact form.
+   ======================================================= */
+.task-form-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    padding: 32px;
+    margin-bottom: 32px;
+}
+
+.form-title {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+/* Form group — label + input pair */
+.task-form .form-group {
+    margin-bottom: 18px;
+}
+
+/* Labels */
+.task-form label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Required field asterisk */
+.required {
+    color: var(--danger);
+}
+
+/* All input types — shared styling */
+.task-form input[type="text"],
+.task-form input[type="email"],
+.task-form input[type="date"],
+.task-form textarea,
+.task-form select {
+    width: 100%;
+    padding: 12px 16px;
+    background: var(--bg-input);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    color: var(--text-primary);
+    font-size: 0.95rem;
+    font-family: inherit;
+    transition: var(--transition);
+    outline: none;
+}
+
+/* Focus state — purple border with glow */
+.task-form input:focus,
+.task-form textarea:focus,
+.task-form select:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.15);
+}
+
+/* Textarea resizing */
+.task-form textarea {
+    resize: vertical;
+    min-height: 70px;
+}
+
+/* Two-column row for category + due date side by side */
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+
+/* ==================== 12. FILTER TABS ====================
+   Row of pill-shaped buttons to filter tasks by status/category.
+   ============================================================ */
+.filter-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 24px;
+}
+
+.filter-btn {
+    padding: 8px 18px;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    border: 1px solid var(--border-color);
+    background: var(--bg-card);
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: var(--transition);
+    font-family: inherit;
+}
+
+.filter-btn:hover {
+    border-color: var(--primary);
+    color: var(--text-primary);
+}
+
+/* Active filter button — primary color */
+.filter-btn.active {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: #fff;
+}
+
+
+/* ==================== 13. TASK COUNTERS ====================
+   Three counter boxes: Total, Pending, Completed.
+   Each has a large number and a small label below it.
+   ============================================================ */
+.task-counters {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 32px;
+}
+
+.counter {
+    flex: 1;
+    text-align: center;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    padding: 16px;
+}
+
+.counter-number {
+    display: block;
+    font-size: 1.8rem;
+    font-weight: 800;
+}
+
+.counter-label {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 4px;
+}
+
+/* Color-coded counter numbers */
+.counter-total .counter-number {
+    color: var(--primary-light);
+    /* Purple for total */
+}
+
+.counter-pending .counter-number {
+    color: var(--warning);
+    /* Orange for pending */
+}
+
+.counter-completed .counter-number {
+    color: var(--success);
+    /* Green for completed */
+}
+
+
+/* ==================== SECTION HEADINGS ==================== */
+.section-heading {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--border-color);
+}
+
+
+/* ==================== 14. TASK CARDS ====================
+   Each task is displayed as a card with:
+   - Checkbox (circle button to toggle completion)
+   - Task body (title, category badge, description, date, actions)
+   ========================================================= */
+
+/* Task list container */
+.task-list {
+    margin-bottom: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* Empty state — shown when there are no tasks */
+.empty-state {
+    text-align: center;
+    padding: 32px;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    background: var(--bg-card);
+    border: 1px dashed var(--border-color);
+    border-radius: var(--radius);
+}
+
+/* Individual task card */
+.task-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    padding: 20px 24px;
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    transition: var(--transition);
+    animation: fadeInUp 0.3s ease;
+    /* Slide-in animation on render */
+}
+
+.task-card:hover {
+    background: var(--bg-card-hover);
+    border-color: rgba(108, 99, 255, 0.3);
+}
+
+/* Completed task styling — reduced opacity + strikethrough */
+.task-card.completed {
+    opacity: 0.6;
+}
+
+.task-card.completed .task-title {
+    text-decoration: line-through;
+    color: var(--text-muted);
+}
+
+/* Round checkbox button */
+.task-checkbox {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    border: 2px solid var(--border-color);
+    cursor: pointer;
+    flex-shrink: 0;
+    margin-top: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+    background: transparent;
+    font-size: 0;
+    color: #fff;
+}
+
+.task-checkbox:hover {
+    border-color: var(--success);
+}
+
+/* Checked state — green circle with checkmark */
+.task-checkbox.checked {
+    background: var(--success);
+    border-color: var(--success);
+    font-size: 0.7rem;
+}
+
+/* Task body — contains title, description, and meta info */
+.task-body {
+    flex: 1;
+    min-width: 0;
+    /* Prevents flexbox overflow issues */
+}
+
+.task-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 6px;
+}
+
+.task-title {
+    font-size: 1.05rem;
+    font-weight: 600;
+}
+
+/* Task description text */
+.task-description {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    margin-bottom: 10px;
+    word-break: break-word;
+}
+
+/* Category badge — color-coded pill */
+.category-badge {
+    padding: 3px 12px;
+    border-radius: 50px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Category-specific badge colors */
+.category-badge.Study {
+    background: rgba(255, 107, 107, 0.15);
+    color: var(--accent-study);
+}
+
+.category-badge.Assignment {
+    background: rgba(78, 205, 196, 0.15);
+    color: var(--accent-assignment);
+}
+
+.category-badge.Personal {
+    background: rgba(255, 217, 61, 0.15);
+    color: var(--accent-personal);
+}
+
+/* Task meta row — date on the left, action buttons on the right */
+.task-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+/* Due date text */
+.task-date {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+/* Overdue date — highlighted in red */
+.task-date.overdue {
+    color: var(--danger);
+    font-weight: 600;
+}
+
+/* Edit and Delete action buttons */
+.task-actions {
+    display: flex;
+    gap: 6px;
+}
+
+.task-actions button {
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 0.78rem;
+    font-weight: 500;
+    border: 1px solid var(--border-color);
+    background: var(--bg-input);
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: var(--transition);
+    font-family: inherit;
+}
+
+/* Edit button hover — purple */
+.task-actions .edit-btn:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+}
+
+/* Delete button hover — red */
+.task-actions .delete-btn:hover {
+    border-color: var(--danger);
+    color: var(--danger);
+}
+
+
+/* ==================== 15. EDIT MODAL ====================
+   A full-screen overlay with a centered modal card.
+   Hidden by default; shown when user clicks "Edit" on a task.
+   ========================================================= */
+.modal-overlay {
+    display: none;
+    /* Hidden by default */
+    position: fixed;
+    inset: 0;
+    /* Covers entire viewport */
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    /* Blurs the background */
+    z-index: 2000;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+/* Show modal when JS adds 'show' class */
+.modal-overlay.show {
+    display: flex;
+}
+
+/* Modal card */
+.modal {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    padding: 32px;
+    width: 100%;
+    max-width: 520px;
+    box-shadow: var(--shadow-lg);
+    animation: fadeInUp 0.3s ease;
+    /* Slide-up animation */
+}
+
+/* Modal header — title and close button */
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.modal-header h2 {
+    font-size: 1.3rem;
+    font-weight: 700;
+}
+
+/* Close (×) button */
+.modal-close {
+    font-size: 1.6rem;
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: var(--transition);
+    line-height: 1;
+}
+
+.modal-close:hover {
+    color: var(--danger);
+}
+
+
+/* ==================== 16. TOAST NOTIFICATION ====================
+   Small popup that appears at the bottom-right of the screen.
+   Used for feedback messages like "Task added" or "Task deleted".
+   ================================================================ */
+.toast {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    padding: 14px 28px;
+    border-radius: var(--radius-sm);
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #fff;
+    box-shadow: var(--shadow);
+    z-index: 3000;
+    transform: translateY(120px);
+    /* Hidden below screen */
+    opacity: 0;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    /* Bounce effect */
+    pointer-events: none;
+}
+
+/* Show state — slides up into view */
+.toast.show {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+/* Toast color variants */
+.toast.success {
+    background: var(--success);
+}
+
+.toast.error {
+    background: var(--danger);
+}
+
+.toast.info {
+    background: var(--primary);
+}
+
+
+/* ==================== 17. FOOTER ====================
+   Simple centered footer at the bottom of every page.
+   ===================================================== */
+.footer {
+    text-align: center;
+    padding: 24px 20px;
+    border-top: 1px solid var(--border-color);
+    color: var(--text-muted);
+    font-size: 0.85rem;
+}
+
+
+/* ==================== 18. ANIMATIONS ====================
+   @keyframes for the slide-up fade-in effect used by
+   task cards and the modal.
+   ========================================================= */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(16px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* ==================== 19. RESPONSIVE DESIGN ====================
+   Media queries to adapt the layout for tablets and phones.
+   ================================================================ */
+
+/* ---------- TABLET: 768px and below ---------- */
+@media (max-width: 768px) {
+
+    /* Show hamburger menu, hide nav links until toggled */
+    .nav-toggle {
+        display: flex;
+    }
+
+    .nav-links {
+        display: none;
+        /* Hidden by default on mobile */
+        position: absolute;
+        top: 64px;
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        background: rgba(15, 14, 23, 0.97);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid var(--border-color);
+        padding: 12px 20px;
+        gap: 4px;
+    }
+
+    /* Shown when JS adds 'open' class via hamburger click */
+    .nav-links.open {
+        display: flex;
+    }
+
+    .nav-links a {
+        padding: 12px 16px;
+        border-radius: var(--radius-sm);
+    }
+
+    /* Smaller hero headline */
+    .hero h1 {
+        font-size: 2.2rem;
+    }
+
+    .hero-description {
+        font-size: 1rem;
+    }
+
+    .hero-stats {
+        gap: 24px;
+    }
+
+    /* Features grid: 2 columns instead of 3 */
+    .features-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    /* Contact grid: single column stack */
+    .contact-grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* Form row: stack category and date vertically */
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+
+    /* Page hero adjustments */
+    .page-hero h1 {
+        font-size: 2rem;
+    }
+
+    /* Task counters: allow wrapping */
+    .task-counters {
+        flex-wrap: wrap;
+    }
+
+    .counter {
+        min-width: calc(50% - 8px);
+    }
+}
+
+/* ---------- MOBILE: 480px and below ---------- */
+@media (max-width: 480px) {
+
+    /* Even smaller hero headline */
+    .hero h1 {
+        font-size: 1.8rem;
+    }
+
+    .hero-description {
+        font-size: 0.92rem;
+    }
+
+    /* Stack buttons vertically */
+    .hero-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    /* Features grid: single column */
+    .features-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .page-title {
+        font-size: 1.7rem;
+    }
+
+    /* Task cards: stack checkbox and body vertically */
+    .task-card {
+        flex-direction: column;
+    }
+
+    /* Stack date and actions vertically */
+    .task-meta {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    /* Counters: full width, stacked */
+    .task-counters {
+        flex-direction: column;
+    }
+
+    .counter {
+        min-width: 100%;
+    }
+
+    /* Center the filter tabs */
+    .filter-tabs {
+        justify-content: center;
+    }
+
+    /* Toast: full width on mobile */
+    .toast {
+        left: 20px;
+        right: 20px;
+        bottom: 20px;
+        text-align: center;
+    }
+}
