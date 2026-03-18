@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="StudentTasker Dashboard - Add, edit, delete, and manage your tasks with categories and due dates.">
+    <title>StudentTasker | Dashboard</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+
+    <!-- ==================== NAVIGATION ====================
+         Same navbar structure across all pages.
+         The "Dashboard" link has the 'active' class here.
+    ============================================================ -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <span class="logo-icon">📋</span> StudentTasker
+            </a>
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+                <span class="hamburger"></span>
+                <span class="hamburger"></span>
+                <span class="hamburger"></span>
+            </button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="dashboard.html" class="active">Dashboard</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- ==================== DASHBOARD SECTION ====================
+         The main area where users can add, view, edit, and delete tasks.
+         Contains: Add Task Form, Filter Tabs, Task Counters,
+                   Pending Tasks List, Completed Tasks List.
+    ============================================================ -->
+    <section class="dashboard">
+        <div class="container">
+            <h1 class="page-title">📝 Task Dashboard</h1>
+            <p class="page-subtitle">Add, manage, and track all your tasks in one place.</p>
+
+            <!-- ========== ADD TASK FORM ==========
+                 This form lets users create a new task.
+                 Fields: Title (required), Description, Category (required), Due Date (required).
+                 On submit, JavaScript adds the task to localStorage.
+            ======================================= -->
+            <div class="task-form-card">
+                <h2 class="form-title">Add New Task</h2>
+                <form id="taskForm" class="task-form">
+
+                    <!-- Task Title Input -->
+                    <div class="form-group">
+                        <label for="taskTitle">Task Title <span class="required">*</span></label>
+                        <input type="text" id="taskTitle" placeholder="e.g. Complete Math Assignment" required>
+                    </div>
+
+                    <!-- Task Description (optional) -->
+                    <div class="form-group">
+                        <label for="taskDescription">Description</label>
+                        <textarea id="taskDescription" rows="3"
+                            placeholder="Add more details about the task..."></textarea>
+                    </div>
+
+                    <!-- Category & Due Date — displayed side-by-side on desktop -->
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="taskCategory">Category <span class="required">*</span></label>
+                            <select id="taskCategory" required>
+                                <option value="">Select Category</option>
+                                <option value="Study">📖 Study</option>
+                                <option value="Assignment">📝 Assignment</option>
+                                <option value="Personal">🧑 Personal</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="taskDueDate">Due Date <span class="required">*</span></label>
+                            <input type="date" id="taskDueDate" required>
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" class="btn btn-primary btn-block" id="formSubmitBtn">
+                        ➕ Add Task
+                    </button>
+                </form>
+            </div>
+
+            <!-- ========== FILTER TABS ==========
+                 Buttons to filter the task list by status or category.
+                 JavaScript toggles the 'active' class and re-renders tasks.
+            ======================================= -->
+            <div class="filter-tabs">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="pending">⏳ Pending</button>
+                <button class="filter-btn" data-filter="completed">✅ Completed</button>
+                <button class="filter-btn" data-filter="Study">📖 Study</button>
+                <button class="filter-btn" data-filter="Assignment">📝 Assignment</button>
+                <button class="filter-btn" data-filter="Personal">🧑 Personal</button>
+            </div>
+
+            <!-- ========== TASK COUNTERS ==========
+                 Three counter boxes showing Total, Pending, and Completed task counts.
+                 Updated dynamically by JavaScript.
+            ======================================= -->
+            <div class="task-counters">
+                <div class="counter counter-total">
+                    <span class="counter-number" id="totalCount">0</span>
+                    <span class="counter-label">Total</span>
+                </div>
+                <div class="counter counter-pending">
+                    <span class="counter-number" id="pendingCount">0</span>
+                    <span class="counter-label">Pending</span>
+                </div>
+                <div class="counter counter-completed">
+                    <span class="counter-number" id="completedCount">0</span>
+                    <span class="counter-label">Completed</span>
+                </div>
+            </div>
+
+            <!-- ========== PENDING TASKS LIST ==========
+                 Task cards for pending (not completed) tasks are rendered here by JS.
+                 Shows an empty-state message when there are no pending tasks.
+            ======================================= -->
+            <h2 class="section-heading">⏳ Pending Tasks</h2>
+            <div class="task-list" id="pendingTaskList">
+                <!-- Pending task cards are rendered here by JavaScript -->
+                <div class="empty-state" id="emptyPending">
+                    <p>🎉 No pending tasks! Add one above.</p>
+                </div>
+            </div>
+
+            <!-- ========== COMPLETED TASKS LIST ==========
+                 Task cards for completed tasks are rendered here by JS.
+                 Shows an empty-state message when there are no completed tasks.
+            ======================================= -->
+            <h2 class="section-heading">✅ Completed Tasks</h2>
+            <div class="task-list" id="completedTaskList">
+                <!-- Completed task cards are rendered here by JavaScript -->
+                <div class="empty-state" id="emptyCompleted">
+                    <p>No completed tasks yet.</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ==================== EDIT TASK MODAL ====================
+         A popup modal that appears when the user clicks "Edit" on a task.
+         Contains a form pre-filled with the selected task's current data.
+         JavaScript handles opening, closing, and saving changes.
+    ============================================================ -->
+    <div class="modal-overlay" id="editModal">
+        <div class="modal">
+            <!-- Modal Header with title and close (X) button -->
+            <div class="modal-header">
+                <h2>Edit Task</h2>
+                <button class="modal-close" id="modalClose">&times;</button>
+            </div>
+
+            <!-- Edit Form -->
+            <form id="editForm" class="task-form">
+                <!-- Hidden input to store the task ID being edited -->
+                <input type="hidden" id="editTaskId">
+
+                <div class="form-group">
+                    <label for="editTitle">Task Title <span class="required">*</span></label>
+                    <input type="text" id="editTitle" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="editDescription">Description</label>
+                    <textarea id="editDescription" rows="3"></textarea>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="editCategory">Category <span class="required">*</span></label>
+                        <select id="editCategory" required>
+                            <option value="Study">📖 Study</option>
+                            <option value="Assignment">📝 Assignment</option>
+                            <option value="Personal">🧑 Personal</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="editDueDate">Due Date <span class="required">*</span></label>
+                        <input type="date" id="editDueDate" required>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block">💾 Save Changes</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ==================== TOAST NOTIFICATION ====================
+         A small popup that slides in from the bottom-right to give feedback
+         (e.g., "Task added successfully!"). Controlled by JavaScript.
+    ============================================================ -->
+    <div class="toast" id="toast"></div>
+
+    <!-- ==================== FOOTER ==================== -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 StudentTasker. Made with ❤️ for university students.</p>
+        </div>
+    </footer>
+
+    <!-- Main JavaScript File -->
+    <script src="js/app.js"></script>
+</body>
+
+</html>

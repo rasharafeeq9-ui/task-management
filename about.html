@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Learn about StudentTasker — a free task management tool built for university students using HTML, CSS, and JavaScript.">
+    <title>StudentTasker | About</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+
+    <!-- ==================== NAVIGATION ==================== -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <span class="logo-icon">📋</span> StudentTasker
+            </a>
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+                <span class="hamburger"></span>
+                <span class="hamburger"></span>
+                <span class="hamburger"></span>
+            </button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="about.html" class="active">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- ==================== ABOUT HERO BANNER ====================
+         A small hero section with the page title and subtitle.
+         Uses gradient background for visual consistency with other pages.
+    ============================================================ -->
+    <section class="page-hero">
+        <div class="container">
+            <h1>About <span class="gradient-text">StudentTasker</span></h1>
+            <p class="page-hero-subtitle">A simple, effective tool to help students stay organized and productive.</p>
+        </div>
+    </section>
+
+    <!-- ==================== ABOUT CONTENT ====================
+         Multiple info cards describing the purpose, audience,
+         technology stack, and key features of the app.
+    ============================================================ -->
+    <section class="about-content">
+        <div class="container">
+
+            <!-- Card 1: Our Purpose -->
+            <div class="about-card">
+                <div class="about-card-icon">🎯</div>
+                <h2>Our Purpose</h2>
+                <p>
+                    StudentTasker was created to solve a common problem faced by university students —
+                    keeping track of multiple assignments, study schedules, and personal tasks.
+                    Instead of juggling sticky notes, spreadsheets, and reminder apps, students can
+                    now manage everything in one clean, distraction-free dashboard.
+                </p>
+            </div>
+
+            <!-- Card 2: Target Audience -->
+            <div class="about-card">
+                <div class="about-card-icon">🎓</div>
+                <h2>Who Is It For?</h2>
+                <p>
+                    This app is designed specifically for <strong>university and college students</strong>
+                    who want a lightweight, no-fuss task manager. Whether you're tracking homework deadlines,
+                    exam preparation sessions, or personal errands — StudentTasker keeps it all organized
+                    with categories like <em>Study</em>, <em>Assignment</em>, and <em>Personal</em>.
+                </p>
+            </div>
+
+            <!-- Card 3: Technology Stack -->
+            <div class="about-card">
+                <div class="about-card-icon">💻</div>
+                <h2>Technology Stack</h2>
+                <p>This project is built using only frontend web technologies:</p>
+                <!-- Technology badges displayed in a flex row -->
+                <div class="tech-stack">
+                    <div class="tech-badge">
+                        <span class="tech-icon">🟧</span> HTML5
+                    </div>
+                    <div class="tech-badge">
+                        <span class="tech-icon">🟦</span> CSS3
+                    </div>
+                    <div class="tech-badge">
+                        <span class="tech-icon">🟨</span> JavaScript (ES6)
+                    </div>
+                    <div class="tech-badge">
+                        <span class="tech-icon">💾</span> localStorage API
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 4: Key Features -->
+            <div class="about-card">
+                <div class="about-card-icon">✨</div>
+                <h2>Key Features</h2>
+                <ul class="feature-list">
+                    <li>✅ Add, edit, and delete tasks easily</li>
+                    <li>📂 Categorize tasks as Study, Assignment, or Personal</li>
+                    <li>📅 Set due dates to track deadlines</li>
+                    <li>🔄 Mark tasks as completed or pending</li>
+                    <li>💾 Data persists in browser using localStorage</li>
+                    <li>📱 Fully responsive design for all devices</li>
+                    <li>🚀 No login required — works instantly</li>
+                </ul>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ==================== FOOTER ==================== -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 StudentTasker. Made with ❤️ for university students.</p>
+        </div>
+    </footer>
+
+    <!-- Main JavaScript File -->
+    <script src="js/app.js"></script>
+</body>
+
+</html>

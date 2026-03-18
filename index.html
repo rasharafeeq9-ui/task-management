@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="StudentTasker — A free, simple task management app for university students. Add, edit, and track study tasks, assignments, and personal tasks.">
+    <title>StudentTasker | Home</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+
+    <!-- ==================== NAVIGATION ====================
+         Sticky navbar with logo and links to all four pages.
+         Hamburger button is shown on mobile (toggled via JS).
+    ===================================================== -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <span class="logo-icon">📋</span> StudentTaskmangementwebsite
+            </a>
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+                <span class="hamburger"></span>
+                <span class="hamburger"></span>
+                <span class="hamburger"></span>
+            </button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- ==================== HERO SECTION ====================
+         Full-height intro section with headline, description,
+         two CTA buttons, and a stats row at the bottom.
+    ========================================================== -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <!-- Small badge above headline -->
+            <span class="hero-badge">🎓 Built for University Students</span>
+
+            <!-- Main headline -->
+            <h1>Stay Organized,<br><span class="gradient-text">Stay Ahead</span></h1>
+
+            <!-- Description -->
+            <p class="hero-description">
+                StudentTasker helps you manage your study tasks, assignments, and personal goals
+                — all in one place. No sign-up needed. Works right in your browser.
+            </p>
+
+            <!-- CTA Buttons -->
+            <div class="hero-buttons">
+                <a href="dashboard.html" class="btn btn-primary btn-lg">Get Started →</a>
+                <a href="about.html" class="btn btn-outline btn-lg">Learn More</a>
+            </div>
+
+            <!-- Quick stats -->
+            <div class="hero-stats">
+                <div class="stat">
+                    <span class="stat-number">3</span>
+                    <span class="stat-label">Task Categories</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">∞</span>
+                    <span class="stat-label">Tasks Supported</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">0</span>
+                    <span class="stat-label">Sign-ups Needed</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== FEATURES SECTION ====================
+         A 3-column grid of 6 feature cards explaining the app's
+         key capabilities to new visitors.
+    ============================================================ -->
+    <section class="features" id="features">
+        <div class="container">
+            <h2 class="section-title">Why StudentTasker?</h2>
+            <p class="section-subtitle">Everything you need to stay productive, nothing you don't.</p>
+
+            <div class="features-grid">
+                <!-- Feature Card 1 - Categories -->
+                <div class="feature-card">
+                    <div class="feature-icon">📂</div>
+                    <h3>Smart Categories</h3>
+                    <p>Organize tasks by Study, Assignment, or Personal. Never mix up your priorities again.</p>
+                </div>
+
+                <!-- Feature Card 2 - Due Dates -->
+                <div class="feature-card">
+                    <div class="feature-icon">📅</div>
+                    <h3>Due Date Tracking</h3>
+                    <p>Set deadlines for every task and see at a glance what's coming up next.</p>
+                </div>
+
+                <!-- Feature Card 3 - Auto Save -->
+                <div class="feature-card">
+                    <div class="feature-icon">💾</div>
+                    <h3>Auto-Save (localStorage)</h3>
+                    <p>Your tasks are saved right in your browser. No sign-up, no database — just open and go.</p>
+                </div>
+
+                <!-- Feature Card 4 - Progress -->
+                <div class="feature-card">
+                    <div class="feature-icon">✅</div>
+                    <h3>Track Progress</h3>
+                    <p>Mark tasks as completed and see them separated from pending items for clarity.</p>
+                </div>
+
+                <!-- Feature Card 5 - Editing -->
+                <div class="feature-card">
+                    <div class="feature-icon">✏️</div>
+                    <h3>Edit Anytime</h3>
+                    <p>Changed your mind? Edit any task's title, description, category, or due date instantly.</p>
+                </div>
+
+                <!-- Feature Card 6 - Responsive -->
+                <div class="feature-card">
+                    <div class="feature-icon">📱</div>
+                    <h3>Fully Responsive</h3>
+                    <p>Works beautifully on your phone, tablet, or laptop — study anywhere.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== CALL-TO-ACTION SECTION ====================
+         A simple section encouraging the user to open the dashboard.
+    ============================================================ -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>Ready to Get Organized?</h2>
+            <p>Jump into your dashboard and start managing tasks in seconds.</p>
+            <a href="dashboard.html" class="btn btn-primary btn-lg">Open Dashboard →</a>
+        </div>
+    </section>
+
+    <!-- ==================== FOOTER ====================
+         Simple footer with copyright text.
+    ============================================================ -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 StudentTasker. Made with ❤️ for university students.</p>
+        </div>
+    </footer>
+
+    <!-- Main JavaScript File -->
+    <script src="js/app.js"></script>
+</body>
+
+</html>
